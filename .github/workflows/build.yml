@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'packages/frontend/**'
-      - 'packages/order-api/**'
 
 jobs:
   build:
@@ -39,7 +36,6 @@ jobs:
         run: |
           dotnet build
           dotnet test
-
       - name: Publish .NET API
         working-directory: packages/order-api
         run: dotnet publish -c Release -o ./publish
