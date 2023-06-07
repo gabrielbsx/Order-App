@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Install Angular dependencies
+        working-directory: packages/frontend
+        run: npm ci
+
+      - name: Build Angular app
+        working-directory: packages/frontend
+        run: npm run build -- --prod
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0
+
+      - name: Build and test .NET API
+        working-directory: packages/order-api
+        run: |
+          dotnet build
+          dotnet test
+
+      - name: Publish .NET API
+        working-directory: packages/order-api
+        run: dotnet publish -c Release -o ./publish
