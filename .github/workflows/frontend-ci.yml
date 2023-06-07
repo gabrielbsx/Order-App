@@ -1,9 +1,11 @@
-name: Build
+name: Frontend CI
 
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - 'packages/frontend/**'
 
 jobs:
   build:
@@ -25,18 +27,3 @@ jobs:
       - name: Build Angular app
         working-directory: packages/frontend
         run: npm run build
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0
-
-      - name: Build and test .NET API
-        working-directory: packages/order-api
-        run: |
-          dotnet build
-          dotnet test
-
-      - name: Publish .NET API
-        working-directory: packages/order-api
-        run: dotnet publish -c Release -o ./publish
