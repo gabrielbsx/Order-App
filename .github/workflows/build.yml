@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Angular app
         working-directory: packages/frontend
-        run: npm run build -- --prod
+        run: npm run build
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
