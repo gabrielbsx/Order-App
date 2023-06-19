@@ -17,6 +17,11 @@ namespace OrderApp.Domain.Entities
             OrderItems = new List<OrderItem>();
             CreatedAt = DateTime.UtcNow;
         }
+
+        public void CalculateTotalValue()
+        {
+            TotalValue = OrderItems.Sum(item => item.UnitPrice * item.Quantity);
+        }
     }
 
     public enum OrderStatus

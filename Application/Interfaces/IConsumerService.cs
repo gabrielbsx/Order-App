@@ -2,8 +2,8 @@
 
 namespace OrderApp.Application.Interfaces
 {
-    public interface IProductService
+    public interface IConsumerService
     {
-        Task<Product> GetProductById(int productId);
+        Task<Consumer> GetConsumerById(int id);
     }
 }

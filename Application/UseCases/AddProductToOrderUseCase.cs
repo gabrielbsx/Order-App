@@ -15,14 +15,14 @@ namespace OrderApp.Application.UseCases
             _productService = productService;
         }
 
-        public void Handle(int orderId, int productId, int quantity)
+        async public void Handle(int orderId, int productId, int quantity)
         {
-            var order = _orderRepository.GetOrderById(orderId);
+            Order order = await _orderRepository.GetOrderById(orderId);
             if (order == null)
             {
                 throw new Exception($"Order with ID {orderId} not found.");
             }
-            var product = _productService.GetProductById(productId);
+            var product = await _productService.GetProductById(productId);
             if (product == null)
             {
                 throw new Exception($"Product with ID {productId} not found.");
@@ -34,7 +34,7 @@ namespace OrderApp.Application.UseCases
                 UnitPrice = product.Price,
             };
             order.OrderItems.Add(item);
-            _orderRepository.UpdateOrder(order);
+            await _orderRepository.UpdateOrder(order);
         }
     }
 }
