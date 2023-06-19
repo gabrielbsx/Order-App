@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 6.0
+      nodejs: 18
+  pre_build:
+    commands:
+      - cd packages/frontend
+      - npm ci
+  build:
+    commands:
+      - cd ../order-api
+      - dotnet build
+      - dotnet test
+      - dotnet publish -c Release -o ./publish
+  post_build:
+    commands:
+      - echo "Build completed on `date`"

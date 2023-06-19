@@ -1,0 +1,31 @@
+name: Order API CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/order-api/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.x
+
+      - name: Build and test .NET API
+        working-directory: packages/order-api
+        run: |
+          dotnet build
+          dotnet test
+
+      - name: Publish .NET API
+        working-directory: packages/order-api
+        run: dotnet publish -c Release -o ./publish
