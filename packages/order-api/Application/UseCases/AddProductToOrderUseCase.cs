@@ -34,6 +34,7 @@ namespace OrderApp.Application.UseCases
                 UnitPrice = product.Price,
             };
             order.OrderItems.Add(item);
+            order.CalculateTotalValue();
             await _orderRepository.UpdateOrder(order);
         }
     }
