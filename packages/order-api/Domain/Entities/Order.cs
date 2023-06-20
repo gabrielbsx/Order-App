@@ -1,6 +1,4 @@
-﻿using OrderApp.Domain.Interfaces;
-
-namespace OrderApp.Domain.Entities
+﻿namespace OrderApp.Domain.Entities
 {
     public class Order
     {
